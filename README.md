@@ -9,7 +9,7 @@
 Русификатор для игры **Predecessor** создан с целью предоставить русскоязычным игрокам возможность насладиться игровым процессом на родном языке. Мы стремимся к тому, чтобы игровой мир был доступен и понятен для всех, кто предпочитает русский язык.
 
 # Инструкция по установке
-- Скачайте файл ```pakchunk0-WindowsClient1.pak```
+- Скачайте последнюю версию файла ```pakchunk0-WindowsClient1.pak``` из списка релизов [тут](https://github.com/bslie/predecessor-rus/releases/latest)
 - Поместите файл в папку ```\Steam\steamapps\common\Predecessor\Predecessor\Content\Paks``` для *Steam* и в папку ```\Epic Games\Predecessor\Predecessor\Content\Paks``` для *EpicGames*. У вас должно получится в папке `Paks` два файла: `pakchunk0-WindowsClient.pak` и  `pakchunk0-WindowsClient1.pak`
 - Запустите игру и в настройках выберите русский язык интерфейса.
 
