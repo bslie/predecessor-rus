@@ -10,7 +10,7 @@
 
 # Инструкция по установке
 - Скачайте последнюю версию файла ```pakchunk0-WindowsClient1.pak``` из списка релизов [тут](https://github.com/bslie/predecessor-rus/releases/latest)
-- Поместите файл в папку ```\Steam\steamapps\common\Predecessor\Predecessor\Content\Paks``` для *Steam* и в папку ```\Epic Games\Predecessor\Predecessor\Content\Paks``` для *EpicGames*. У вас должно получится в папке `Paks` два файла: `pakchunk0-WindowsClient.pak` и  `pakchunk0-WindowsClient1.pak`
+- Поместите файл в папку ```\Steam\steamapps\common\Predecessor\Predecessor\Content\Paks``` для *Steam* и в папку ```\Epic Games\Predecessor\Predecessor\Content\Paks``` для *EpicGames*. У вас получится в папке `Paks` два файла: `pakchunk0-WindowsClient.pak` и  `pakchunk0-WindowsClient1.pak`
 - Запустите игру и в настройках выберите русский язык интерфейса.
 
 # Проблемы
