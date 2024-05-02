@@ -1,16 +1,16 @@
 {
 "-- 1. Drop the temporary table if it exists\r\nDROP TABLE IF EXISTS temp_localization;\r\n\r\n-- 2. Create a temporary table in the default temporary schema\r\nCREATE TEMP TABLE temp_localization AS\r\nSELECT id, key AS \"namespace\/key\", source, target FROM public.\"Localization\";\r\n\r\n-- 3. Transfer all data from public.\"Localization\" to the temporary table\r\n-- (This step is already covered by the CREATE TEMP TABLE statement)\r\n\r\n-- 4. Update the 'source' field in the temporary table with 'translated_text' from public.\"Translation\"\r\n-- where the status is 'TRANSLATED'\r\nUPDATE temp_localization\r\nSET source = (\r\n    SELECT t.translated_text\r\n    FROM public.\"Translation\" t\r\n    WHERE t.localization_id = temp_localization.id\r\n      AND t.status = 'TRANSLATED'\r\n)\r\nWHERE EXISTS (\r\n    SELECT 1\r\n    FROM public.\"Translation\" t\r\n    WHERE t.localization_id = temp_localization.id\r\n      AND t.status = 'TRANSLATED'\r\n);\r\n\r\n-- 5. Remove the 'id' and 'target' columns from the temporary table\r\nALTER TABLE temp_localization DROP COLUMN id;\r\nALTER TABLE temp_localization DROP COLUMN target;\r\n\r\n-- 6. Verify the updates (optional step to view the changes)\r\nSELECT * FROM temp_localization\r\n": [
 	{
-		"namespace\/key" : "\/AE26367142F93F56B7DC99BB9591D652",
-		"source" : "9000"
+		"namespace\/key" : "\/F947A31141481CD97BD2548DAEB8D172",
+		"source" : "Все Герои"
 	},
 	{
-		"namespace\/key" : "\/68451D5942625A9DBC7BCBBF392E6198",
-		"source" : "99"
+		"namespace\/key" : "\/6925290041955E0B4BEEE2A110375F91",
+		"source" : "Cannon"
 	},
 	{
-		"namespace\/key" : "\/013A7FD745506320C9D0919156655B73",
-		"source" : "??????"
+		"namespace\/key" : "\/DB6A630C43B1AB1DD5DA54AE65D6E14A",
+		"source" : "Hallowed Braid"
 	},
 	{
 		"namespace\/key" : "\/E39F80954EDB2C5BFD748D93D16C1BDE",
@@ -441,6 +441,14 @@
 		"source" : "9"
 	},
 	{
+		"namespace\/key" : "\/AE26367142F93F56B7DC99BB9591D652",
+		"source" : "9000"
+	},
+	{
+		"namespace\/key" : "\/68451D5942625A9DBC7BCBBF392E6198",
+		"source" : "99"
+	},
+	{
 		"namespace\/key" : "\/71753F354A9A0D7BAB45DBA0C3093D94",
 		"source" : "99"
 	},
@@ -453,12 +461,12 @@
 		"source" : "99000"
 	},
 	{
-		"namespace\/key" : "\/0E4496C84B4F19E8E8A5128282E1706C",
-		"source" : "<ActiveItemText>Активный - Solstone Drone - {HighCooldown}-{LowCooldown} сек. КД<\/>\r\n• Выпускает <EffectText>скрытый<\/> Solstone Drone.\r\n• Дрон действует <EffectText>{LowDuration}-{HighDuration}сек.<\/>\r\n• Импульсы обнаруживают <EffectText>скрытые<\/> юниты в течении <EffectText>{Duration} сек.<\/>\r\n• Максимальное кол-во зарядов: <EffectText>{Charges}<\/>\r\n\r\n"
+		"namespace\/key" : "\/F38E9F124A1319C02F23F69E3EDD8C44",
+		"source" : "<ActiveItemText>Применение:<\/>\r\n• <HealthText>Восстанавливает {LowHealth}-{HighHealth} Здоровье<\/> в течение <HealthText>{Duration} сек.<\/>\r\n• Зависит от <ManaText>уровня<\/>.\r\n• Макс. зарядов: <EffectText>{Charges}<\/>.\r\n• Заряды восстанавливаются на базе."
 	},
 	{
-		"namespace\/key" : "LyraSettings\/AspectRatio-9:16",
-		"source" : "9:16"
+		"namespace\/key" : "\/0E4496C84B4F19E8E8A5128282E1706C",
+		"source" : "<ActiveItemText>Активный - Solstone Drone - {HighCooldown}-{LowCooldown} сек. КД<\/>\r\n• Выпускает <EffectText>скрытый<\/> Solstone Drone.\r\n• Дрон действует <EffectText>{LowDuration}-{HighDuration}сек.<\/>\r\n• Импульсы обнаруживают <EffectText>скрытые<\/> юниты в течении <EffectText>{Duration} сек.<\/>\r\n• Максимальное кол-во зарядов: <EffectText>{Charges}<\/>\r\n\r\n"
 	},
 	{
 		"namespace\/key" : "\/F2E03F164DA24AC401A011B75E47375B",
@@ -509,12 +517,12 @@
 		"source" : "<ActiveItemText>Активный  - Overcharge - {Cooldown}сек. КД:<\/>\r\n• Наносит <AbilityPowerText>{Damage} (+{Scaling}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>) урона<\/> {Targets} ближайшим вражеским героям каждую секунду в течение <AbilityPowerText>{Duration} сек.<\/>\r\n• <HealthText>Исцеляет<\/> на <HealthText>{Heal}%<\/> от нанесенного урона.\r\n• Множественные удары по одной и той же цели наносят половину <AbilityPowerText>урона<\/>."
 	},
 	{
-		"namespace\/key" : "\/8AB812F241B80A613185219981D9885B",
-		"source" : "<ActiveItemText>Активный - Phantom Rush - {Cooldown} сек. КД:<\/>\r\n• Увеличивает <EffectText>скорость передвижения<\/> ближайших союзников на <EffectText>{Speed}%<\/> на <EffectText>{Duration} сек.<\/>\r\n• Даёт невосприимчивость к <CC_Text>замедлению<\/> и возможность проходить сквозь героев в течение <EffectText>{Duration} сек.<\/>"
-	},
-	{
 		"namespace\/key" : "\/555B27984562443ECB8C98A47E7E4518",
 		"source" : "<System.Message>Включите командный чат в настройках.<\/>"
+	},
+	{
+		"namespace\/key" : "\/8AB812F241B80A613185219981D9885B",
+		"source" : "<ActiveItemText>Активный - Phantom Rush - {Cooldown} сек. КД:<\/>\r\n• Увеличивает <EffectText>скорость передвижения<\/> ближайших союзников на <EffectText>{Speed}%<\/> на <EffectText>{Duration} сек.<\/>\r\n• Даёт невосприимчивость к <CC_Text>замедлению<\/> и возможность проходить сквозь героев в течение <EffectText>{Duration} сек.<\/>"
 	},
 	{
 		"namespace\/key" : "\/E804D5464E3ED9821027C18A79302C28",
@@ -537,6 +545,14 @@
 		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при ударе<\/>."
 	},
 	{
+		"namespace\/key" : "\/FB68B140473FD18D44F33EB3D6526A4F",
+		"source" : "Способности"
+	},
+	{
+		"namespace\/key" : "\/FF5C51924416157C79F118975A348F37",
+		"source" : "Способности"
+	},
+	{
 		"namespace\/key" : "\/5EC2DB8741AA25883EE42282FA2B426D",
 		"source" : "<ActiveItemText>Активный - Reap - {Cooldown} сек. КД -<\/> <Condition>Делает рывок на небольшое расстояние:<\/>\r\n• Наносит <AttackDamageText>(+{Scaling}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> урона по ближайшим противникам.\r\n• Усиливается от заряда <AbilityName>Sow<\/>.\r\n• <CC_Text>Замедляет<\/> на <CC_Text>80%<\/> на <CC_Text>1 сек.<\/>"
 	},
@@ -546,7 +562,7 @@
 	},
 	{
 		"namespace\/key" : "\/D768CD244BE3C1351AA48982CFC6600B",
-		"source" : "<ActiveItemText>Активный - Rending Strikes - {Cooldown} сек. КД:<\/>\r\n• Даёт <EffectText>10% скорости атаки <\/> на <EffectText>{Duration} сек.<\/>\r\n• Усиливает вашу базовую атаку, атака наносит дополнительно <AttackDamageText>(+{Scaling}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> <EffectText>урона при ударе<\/> на <EffectText>{Duration} сек.<\/>"
+		"source" : "<ActiveItemText>Активный - Rending Strikes - {Cooldown} сек. КД:<\/>\r\n• Даёт <EffectText>10% скорости атаки <\/> на <EffectText>{Duration} сек.<\/>\r\n• Усиливает вашу базовую атаку, наносит дополнительно <AttackDamageText>(+{Scaling}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> <EffectText>урона при ударе<\/> в течение <EffectText>{Duration} сек.<\/>"
 	},
 	{
 		"namespace\/key" : "\/01CABE6648B41E9E9A963B9CBDCAAD6B",
@@ -583,14 +599,6 @@
 	{
 		"namespace\/key" : "\/E9DFB23B43A424FBEB6FDF8E24083FC3",
 		"source" : "<ActiveItemText>Активный - {Cooldown} сек. КД - Stealth Ward:<\/>\r\n• Размещает невидимый <EffectText>вард<\/> на <EffectText>{Duration} сек.<\/>\r\n• Раскрывает все ближайшие не <EffectText>скрытые<\/> объекты.\r\n• Максимум зарядов: <EffectText>{Charges}<\/>."
-	},
-	{
-		"namespace\/key" : "\/F38E9F124A1319C02F23F69E3EDD8C44",
-		"source" : "<ActiveItemText>Применение:<\/>\r\n• <HealthText>Восстанавливает {LowHealth}-{HighHealth} Здоровье<\/> в течение <HealthText>{Duration} сек.<\/>\r\n• Зависит от <ManaText>уровня<\/>.\r\n• Макс. зарядов: <EffectText>{Charges}<\/>.\r\n• Заряды восстанавливаются на базе."
-	},
-	{
-		"namespace\/key" : "\/A8C4D81F4012DEF0B984EABD79DF48F7",
-		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при попадании<\/>."
 	},
 	{
 		"namespace\/key" : "\/DB13102640F2D5B7CCDC29BCEE68FC46",
@@ -681,6 +689,10 @@
 		"source" : "<PassiveItemText>Art Of Fortitude -<\/> <Condition>При применении способности:<\/>\r\n• <HealthText>Восстанавливает{Heal}% недостающего здоровья<\/> в течение <HealthText>{Duration} сек.<\/>"
 	},
 	{
+		"namespace\/key" : "LyraSettings\/AspectRatio-4:3",
+		"source" : "4:3"
+	},
+	{
 		"namespace\/key" : "\/F658A4C44D6C104A353009B5B6727E5B",
 		"source" : "<Header>Разливает масло перед собой.<\/>\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/>.\r\n• Оставляет <EffectText>масляный след<\/> на <EffectText>{Duration} сек.<\/>\r\n• <EffectText>Масляный след<\/> вешает <EffectText>1<\/> заряд <EffectText>Slick<\/> каждые <EffectText>0.5 сек.<\/> и <CC_Text>замедляет<\/> врагов на <CC_Text>{Slow}%<\/> в течение <CC_Text>{SlowDuration} с.<\/>\r\nМасло горит в течение <EffectText>{Duration} сек.<\/> при поджигании:\r\n• Наносит <AbilityPowerText>{OilDamage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/> каждые <EffectText>0.5 сек.<\/>"
 	},
@@ -751,6 +763,10 @@
 	{
 		"namespace\/key" : "\/50FF253E414D463DFD3833B02F2C7810",
 		"source" : "<Header>Базовая атака дальнего боя.<\/>\r\n• Наносит <AttackDamageText>{Damage}<\/>(<img id=\"ADIconOrange\"><\/>)<AttackDamageText>урона<\/>.\r\n• Атак в секунду: <EffectText>{AttackSpeed}<\/>."
+	},
+	{
+		"namespace\/key" : "LyraSettings\/AspectRatio-9:16",
+		"source" : "9:16"
 	},
 	{
 		"namespace\/key" : "\/615D88BD4DE8415411ABFEB88C70D86E",
@@ -929,7 +945,7 @@
 		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при попадании<\/>."
 	},
 	{
-		"namespace\/key" : "\/654EB9EE44677C33550E769B0A77F9A1",
+		"namespace\/key" : "\/505155AA4B6074CF8DDA0488D01BDB98",
 		"source" : "Способности"
 	},
 	{
@@ -1013,11 +1029,11 @@
 		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при попадании<\/>."
 	},
 	{
-		"namespace\/key" : "\/71EBB2D742890EA3ABA084B8C430D319",
+		"namespace\/key" : "\/654EB9EE44677C33550E769B0A77F9A1",
 		"source" : "Способности"
 	},
 	{
-		"namespace\/key" : "\/7521F02B49D097281ECC1B896AEE853C",
+		"namespace\/key" : "\/71EBB2D742890EA3ABA084B8C430D319",
 		"source" : "Способности"
 	},
 	{
@@ -1129,6 +1145,10 @@
 		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при попадании<\/>."
 	},
 	{
+		"namespace\/key" : "\/A8C4D81F4012DEF0B984EABD79DF48F7",
+		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при попадании<\/>."
+	},
+	{
 		"namespace\/key" : "\/AFB048D542275492C732329E8F896558",
 		"source" : "<PassiveItemText>Creep Slayer:<\/>\r\n• Наносит <AttackDamageText>{Damage} урона<\/> по миньонам <EffectText>при попадании<\/>."
 	},
@@ -1209,6 +1229,10 @@
 		"source" : "<PassiveItemText>Elegy -<\/> <Condition>При любой смерти героя:<\/>\r\n• Даёт заряд <EffectText>Elegy<\/>.\r\n• Суммируется до <EffectText>{Stacks}<\/> раз.\r\n• Увеличивает на <AbilityPowerText>{Power} магическую силу<\/> за заряд.\r\n• Увеличивает на <ManaText>{Regen}% восстановление маны<\/> за заряд."
 	},
 	{
+		"namespace\/key" : "\/8E4F5AB74EA89BD14A97348708A070B7",
+		"source" : "<PassiveItemText>Mist Runner -<\/> <Condition>При пересечении туманной стены:<\/>\r\n• Увеличивает на <EffectText>{Speed}% скорость передвижения<\/> на <EffectText>{Duration} сек.<\/>"
+	},
+	{
 		"namespace\/key" : "\/E534E85543B43CCBA149C380FA6F231F",
 		"source" : "<PassiveItemText>Elegy -<\/> <Condition>При любой смерти героя:<\/>\r\n• Даёт заряд <EffectText>Elegy<\/>.\r\n• Суммируется до <EffectText>{Stacks}<\/> раз.\r\n• Увеличивает на <AbilityPowerText>{Power} магическую силу<\/> за заряд.\r\n• Увеличивает на <ManaText>{Regen}% восстановление маны<\/> за заряд."
 	},
@@ -1277,16 +1301,12 @@
 		"source" : "<PassiveItemText>Frosted Renewal -<\/> <Condition>При срабатывании<\/> <AbilityName>Frostblade<\/><Condition>:<\/>\r\n• Восстанавливает <ManaText>{Mana}%<\/> от <ManaText>недостающей маны<\/>."
 	},
 	{
+		"namespace\/key" : "\/531BACCA45064ABBBB91319C3F7268CC",
+		"source" : "<PassiveItemText>Legendary Magician -<\/> <Condition>При попадании способностями по героям или монстрам и убийстве юнитов:<\/>\r\n• Восстанавливает <ManaText>{Restore} маны<\/> (<ManaText>{Kill}<\/> за убийство).\r\n• После восстановления <ManaText>{Mana} маны<\/>:\r\n• Вернитесь на базу, чтобы <EffectText>эволюционировать<\/> предмет в <AbilityName>Legendary Crest<\/>."
+	},
+	{
 		"namespace\/key" : "\/9210C6C54CC05DCDFA5E06B5EB68D3CA",
 		"source" : "<PassiveItemText>Frostwave - {Cooldown} сек. КД -<\/> <Condition> Находясь рядом с вражескими героями в течение {StandNear} сек:<\/>\r\n• Наносит <TrueDamageText>{Damage}<\/><HealthText>(+{Scaling}%)<\/><img id=\"HealthIconGreen\"><\/><TrueDamageText>урона<\/> героям поблизости.\r\n• <CC_Text>Замедляет<\/> на <CC_Text>{Slow}%<\/> на <CC_Text>{Duration} сек.<\/>\r\n• Дает <EffectText>щит<\/> на <EffectText>{Shield}%<\/> от нанесённого урона на <EffectText>{ShieldDuration} сек.<\/>"
-	},
-	{
-		"namespace\/key" : "\/8E4F5AB74EA89BD14A97348708A070B7",
-		"source" : "<PassiveItemText>Mist Runner -<\/> <Condition>При пересечении туманной стены:<\/>\r\n• Увеличивает на <EffectText>{Speed}% скорость передвижения<\/> на <EffectText>{Duration} сек.<\/>"
-	},
-	{
-		"namespace\/key" : "\/7BC8D7B24C867252C5F7629F68F63A20",
-		"source" : "Способности"
 	},
 	{
 		"namespace\/key" : "\/9DE27907443CE2C8A250F7B0DDE4017E",
@@ -1361,11 +1381,7 @@
 		"source" : "<PassiveItemText>Legendary Guardian -<\/> <Condition>При любом нанесении урона врагу:<\/>\r\n• Восстанавливает <HealthText>{Health} здоровья<\/> и дает <GoldText>{Gold} золота<\/>.\r\n• Заряды генерируются каждые <EffectText>{Timer} сек.<\/> для активации требуется союзный герой рядом.\r\n• Накапливает максимум <EffectText>{Charges}<\/> заряда.\r\n• При получения <GoldText>{Gain} золота<\/>:\r\n• Вернитесь на базу, чтобы <EffectText>эволюционировать<\/> предмет в <AbilityName>Legendary Crest<\/>."
 	},
 	{
-		"namespace\/key" : "\/531BACCA45064ABBBB91319C3F7268CC",
-		"source" : "<PassiveItemText>Legendary Magician -<\/> <Condition>При попадании способностями по героям или монстрам и убийстве юнитов:<\/>\r\n• Восстанавливает <ManaText>{Restore} маны<\/> (<ManaText>{Kill}<\/> за убийство).\r\n• После восстановления <ManaText>{Mana} маны<\/>:\r\n• Вернитесь на базу, чтобы <EffectText>эволюционировать<\/> предмет в <AbilityName>Legendary Crest<\/>."
-	},
-	{
-		"namespace\/key" : "\/7F409AC44A8C9600CCB8B29B00BA3CBF",
+		"namespace\/key" : "\/7521F02B49D097281ECC1B896AEE853C",
 		"source" : "Способности"
 	},
 	{
@@ -1441,15 +1457,15 @@
 		"source" : "<PassiveItemText>Menace -<\/> <Condition>Для героев с базовой атакой:<\/>\r\n• Увеличивает на <EffectText>{AttackSpeed}% скорость атаки<\/> на <EffectText>{Duration} сек.<\/>\r\n• Суммируется до <EffectText>{Stacks}<\/> раз.\r\n• При <EffectText>{Stacks}<\/> зарядах дает <EffectText>{Speed}% скорости передвижения<\/>.\r\n• <EffectText>Критические удары<\/> дают <EffectText>{CritStacks}<\/> заряда."
 	},
 	{
+		"namespace\/key" : "\/7BC8D7B24C867252C5F7629F68F63A20",
+		"source" : "Способности"
+	},
+	{
+		"namespace\/key" : "\/7F409AC44A8C9600CCB8B29B00BA3CBF",
+		"source" : "Способности"
+	},
+	{
 		"namespace\/key" : "\/9211593542A854D538420E89384C155D",
-		"source" : "Способности"
-	},
-	{
-		"namespace\/key" : "\/944854784573D42BA215648775031CD1",
-		"source" : "Способности"
-	},
-	{
-		"namespace\/key" : "\/9898117D47055A0D475C5E9242BFC1DB",
 		"source" : "Способности"
 	},
 	{
@@ -1813,7 +1829,7 @@
 		"source" : "<SplashScreenBody>Это предварительная версия Predecessor, которая находится в активной разработке.<\/>\r\n<SplashScreenBody>Некоторые службы Xbox могут быть недоступны или могут работать с ошибками.<\/>\r\n<SplashScreenBody>Некоторые функции игрового процесса могут содержать ошибки или вызывать сбой игры.<\/>\r\n\r\n<SplashScreenBody>Если у вас возникнут какие-либо проблемы, посетите <\/><SplashScreenBodyLink>https:\/\/www.predecessorgame.com\/support<\/><SplashScreenBody>.<\/>"
 	},
 	{
-		"namespace\/key" : "\/9F88A5474A426F4629FF8FBA18C00C23",
+		"namespace\/key" : "\/944854784573D42BA215648775031CD1",
 		"source" : "Способности"
 	},
 	{
@@ -1862,7 +1878,11 @@
 	},
 	{
 		"namespace\/key" : "\/B914CFE54615C09CB65CDF9A16AADC42",
-		"source" : "<keybind id=\"UseChat\"><\/><System.Message> Чат.<\/>"
+		"source" : "<keybind id=\"UseChat\"><\/><System.Message> что бы активировать чат.<\/>"
+	},
+	{
+		"namespace\/key" : "\/013A7FD745506320C9D0919156655B73",
+		"source" : "??????"
 	},
 	{
 		"namespace\/key" : "\/DD30B96A49EB5EEB61F5D69344438C53",
@@ -2073,7 +2093,11 @@
 		"source" : "Способности"
 	},
 	{
-		"namespace\/key" : "\/505155AA4B6074CF8DDA0488D01BDB98",
+		"namespace\/key" : "\/9898117D47055A0D475C5E9242BFC1DB",
+		"source" : "Способности"
+	},
+	{
+		"namespace\/key" : "\/9F88A5474A426F4629FF8FBA18C00C23",
 		"source" : "Способности"
 	},
 	{
@@ -2082,14 +2106,6 @@
 	},
 	{
 		"namespace\/key" : "\/AB0F401B4E6EF439BE2DA3AC1837FA66",
-		"source" : "Способности"
-	},
-	{
-		"namespace\/key" : "\/FB68B140473FD18D44F33EB3D6526A4F",
-		"source" : "Способности"
-	},
-	{
-		"namespace\/key" : "\/FF5C51924416157C79F118975A348F37",
 		"source" : "Способности"
 	},
 	{
@@ -2461,10 +2477,6 @@
 		"source" : "Alien Invader"
 	},
 	{
-		"namespace\/key" : "\/F947A31141481CD97BD2548DAEB8D172",
-		"source" : "Все Герои"
-	},
-	{
 		"namespace\/key" : "\/C033B0EC41BB5F35C80BF68976CD4A9E",
 		"source" : "Все игроки должны находиться в одном регионе."
 	},
@@ -2691,6 +2703,14 @@
 	{
 		"namespace\/key" : "\/08152DC74AEAEF7E3FF4008C934541D6",
 		"source" : "Belly Laugh"
+	},
+	{
+		"namespace\/key" : "\/A626A3424EB3323F543EE585B9724209",
+		"source" : "Bengal"
+	},
+	{
+		"namespace\/key" : "\/5634BD9F4AE2564CD832AFB4F9B901AE",
+		"source" : "Berserker's Axe"
 	},
 	{
 		"namespace\/key" : "\/8319621C4B9F68079D8D39A3BED1EBB6",
@@ -3229,14 +3249,6 @@
 		"source" : "BeetleRed "
 	},
 	{
-		"namespace\/key" : "\/A626A3424EB3323F543EE585B9724209",
-		"source" : "Bengal"
-	},
-	{
-		"namespace\/key" : "\/5634BD9F4AE2564CD832AFB4F9B901AE",
-		"source" : "Berserker's Axe"
-	},
-	{
 		"namespace\/key" : "\/F34C65034A06E1032836D493DFC19F23",
 		"source" : "Big Clap"
 	},
@@ -3647,10 +3659,6 @@
 	{
 		"namespace\/key" : "\/07A191DF45E3F2FE4B10E68A4959832E",
 		"source" : "Отмена."
-	},
-	{
-		"namespace\/key" : "\/6925290041955E0B4BEEE2A110375F91",
-		"source" : "Cannon"
 	},
 	{
 		"namespace\/key" : "\/96315A63412BBD32204E4F938E966724",
@@ -4137,6 +4145,14 @@
 		"source" : "Стоимость: {0}"
 	},
 	{
+		"namespace\/key" : "\/10F67F114A58AC5A729C05BD4D6A47C1",
+		"source" : "Баннер по умолчанию"
+	},
+	{
+		"namespace\/key" : "\/6DFDDAD74EDA05B9AC6193A4F699AFCB",
+		"source" : "Защита"
+	},
+	{
 		"namespace\/key" : "\/61FAB2B848CC1AB1FB25ED9EEEF16882",
 		"source" : "Не удалось запустить поиск матча, так как у одного из членов команды, временная блокировка."
 	},
@@ -4449,14 +4465,6 @@
 		"source" : "По умолчанию"
 	},
 	{
-		"namespace\/key" : "\/10F67F114A58AC5A729C05BD4D6A47C1",
-		"source" : "Баннер по умолчанию"
-	},
-	{
-		"namespace\/key" : "\/6DFDDAD74EDA05B9AC6193A4F699AFCB",
-		"source" : "Защита"
-	},
-	{
 		"namespace\/key" : "\/F48099244B7C03C77AF013807A2A4473",
 		"source" : "Защищайте левую линию."
 	},
@@ -4749,10 +4757,6 @@
 		"source" : "НАГРАДЫ ЗА ОКОНЧАНИЕ 2 СЕЗОНА"
 	},
 	{
-		"namespace\/key" : "\/32F9F6344551240FD8CA4B9A9435F9E9",
-		"source" : "Frozen Hearth"
-	},
-	{
 		"namespace\/key" : "\/B4021DD541A6661C802DD5A4148D1790",
 		"source" : "НАГРАДЫ ЗА ОКОНЧАНИЕ 3 СЕЗОНА"
 	},
@@ -4810,7 +4814,7 @@
 	},
 	{
 		"namespace\/key" : "\/FC727AAA49400C043BA93F87A61F5419",
-		"source" : "Ранний доступ"
+		"source" : "Early Access"
 	},
 	{
 		"namespace\/key" : "\/08445A7B472D54DF6FED85B8F7309FE1",
@@ -5290,7 +5294,7 @@
 	},
 	{
 		"namespace\/key" : "\/DD47CCEB4E27068CE047A0866559430D",
-		"source" : "Делает мощный выстрел вперед который наносит {DisplacementBlast_Damage}<AbilityPowerText>(+{DisplacementBlast_BonusPPScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AbilityPowerText>)<\/><AbilityPowerText>(+{DisplacementBlast_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона.\r\n\r\nВ Режиме нападения выстрел становится броском и смещает врагов от центра взрыва."
+		"source" : "Делает мощный выстрел вперед который наносит {DisplacementBlast_Damage}<AbilityPowerText>(+{DisplacementBlast_BonusPPScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AbilityPowerText>)<\/><AbilityPowerText>(+{DisplacementBlast_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона.\r\n\r\nВ режиме нападения выстрел становится броском и смещает врагов от центра взрыва."
 	},
 	{
 		"namespace\/key" : "\/4F91E40B42562AC3BEFFBD90B0FA55C9",
@@ -5407,6 +5411,10 @@
 	{
 		"namespace\/key" : "\/38BD1F6945DE27DAF4A893B3CE458C5C",
 		"source" : "Frostguard"
+	},
+	{
+		"namespace\/key" : "\/32F9F6344551240FD8CA4B9A9435F9E9",
+		"source" : "Frozen Hearth"
 	},
 	{
 		"namespace\/key" : "\/54443C294EC6F037399F8D954DEDA883",
@@ -5785,10 +5793,6 @@
 		"source" : "Ха. Ха. Ха."
 	},
 	{
-		"namespace\/key" : "\/DB6A630C43B1AB1DD5DA54AE65D6E14A",
-		"source" : "Hallowed Braid"
-	},
-	{
 		"namespace\/key" : "\/6E2521B64797A74A8D7C8BBD29785A62",
 		"source" : "Halloween"
 	},
@@ -6154,11 +6158,11 @@
 	},
 	{
 		"namespace\/key" : "\/B729F8AA427DA1C4503E328FA6A73431",
-		"source" : "След от прыжков с площадки"
+		"source" : "Анимация прыжков с площадки"
 	},
 	{
 		"namespace\/key" : "\/1A8AA866455DE9E7C6FA04B7A4D99391",
-		"source" : "След от прыжков с площадки"
+		"source" : "Анимации прыжков с площадки"
 	},
 	{
 		"namespace\/key" : "\/EB1502F0478A6B0C2D443385A9546532",
@@ -6170,11 +6174,11 @@
 	},
 	{
 		"namespace\/key" : "\/5171864D40FD46FD00EB1F901EECF573",
-		"source" : "Игги бросает Молотов, который наносит {Molotov_Damage} <AbilityPowerText>(+{Molotov_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона врагам, пораженным взрывом.\r\n\r\nВ месте взрыва останется огненное поле, нанося {Molotov_BurnDamage} <AbilityPowerText>(+{Molotov_BurnDamageScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона в течение {Molotov_BurnDuration} сек."
+		"source" : "Игги бросает молотов, который наносит {Molotov_Damage} <AbilityPowerText>(+{Molotov_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона врагам, пораженным взрывом.\r\n\r\nВ месте взрыва останется огненное поле, нанося {Molotov_BurnDamage} <AbilityPowerText>(+{Molotov_BurnDamageScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона в течение {Molotov_BurnDuration} сек."
 	},
 	{
 		"namespace\/key" : "\/7C8E685744D2E7398CD8B98BEAD4E82B",
-		"source" : "Игги Размещает огненную турель c {FlameTurret_MenuHealth} (+{FlameTurret_MenuHealthPerLevel} за уровень героя) <AbilityPowerText>(+{FlameTurret_HealthAPScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> здоровья, которая стреляет самонаводящимися огненными шарами по вражеским целям в радиусе 1300 единиц. Каждый огненный шар наносит {FlameTurret_Damage} <AbilityPowerText>(+{FlameTurret_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона.\r\n\r\nИгги может разместить до {FlameTurret_MaxTurrets} турелей. Попадание во врага с помощью Spew перенаправляет атаку турели на эту цель, если она находится в радиусе действия.\r\n\r\nОгненные турели получают на {FlameTurret_MeleeDamageModifier:MinusOne:Percent}% больше урона от базовых атак ближнего боя."
+		"source" : "Игги размещает огненную турель c {FlameTurret_MenuHealth} (+{FlameTurret_MenuHealthPerLevel} за уровень героя) <AbilityPowerText>(+{FlameTurret_HealthAPScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> здоровья, которая стреляет самонаводящимися огненными шарами по вражеским целям в радиусе 1300 единиц. Каждый огненный шар наносит {FlameTurret_Damage} <AbilityPowerText>(+{FlameTurret_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона.\r\n\r\nИгги может разместить до {FlameTurret_MaxTurrets} турелей. Попадание во врага с помощью Spew перенаправляет атаку турели на эту цель, если она находится в радиусе действия.\r\n\r\nОгненные турели получают на {FlameTurret_MeleeDamageModifier:MinusOne:Percent}% больше урона от базовых атак ближнего боя."
 	},
 	{
 		"namespace\/key" : "\/8C61DC54496EC7E805406A8EBDB799E5",
@@ -6617,10 +6621,6 @@
 		"source" : "Убийство <Red>вражеских героев<\/> очень важно для получения преимущества. Попробуйте использовать свою <Blue>ультимативную способность<\/>, чтобы убить <Red>Гаджет<\/>."
 	},
 	{
-		"namespace\/key" : "\/4273D89C409960312222EE9D8B058FE3",
-		"source" : "Lifebinder"
-	},
-	{
 		"namespace\/key" : "\/2E962D424AD73CC2621071B2A16C99E2",
 		"source" : "Убив все лагеря на своей стороне в Джунглях, вы достигнете 4-го уровня."
 	},
@@ -6917,6 +6917,10 @@
 		"source" : "Life Stream"
 	},
 	{
+		"namespace\/key" : "\/4273D89C409960312222EE9D8B058FE3",
+		"source" : "Lifebinder"
+	},
+	{
 		"namespace\/key" : "\/30E0050847B423B234985F8CC2222669",
 		"source" : "Вампиризм"
 	},
@@ -7018,7 +7022,7 @@
 	},
 	{
 		"namespace\/key" : "\/9F77CE8C4DC69169F8FA7F8E9148B737",
-		"source" : "Лт. Белика"
+		"source" : "Лт.Белика"
 	},
 	{
 		"namespace\/key" : "\/2CAFDBEC43E2A73B102F4B8F88039A50",
@@ -7241,12 +7245,16 @@
 		"source" : "Баннер Мастер Аргус"
 	},
 	{
+		"namespace\/key" : "\/715F10BA4FC47E2BBAEC51834E1EAE99",
+		"source" : "Нужно описание"
+	},
+	{
 		"namespace\/key" : "\/DFCE797546FBDD6E04F7858506DE733B",
 		"source" : "Баннер Мастер Белика"
 	},
 	{
 		"namespace\/key" : "\/87F8E2314776CCA3BB8076BABE267458",
-		"source" : "Рамка Мастера"
+		"source" : "Рамка Мастер"
 	},
 	{
 		"namespace\/key" : "\/210EA3C542597226155CB4AD7EEB9F7D",
@@ -7254,11 +7262,11 @@
 	},
 	{
 		"namespace\/key" : "\/04BF45B848CA4BAC6988FBBAFBB58703",
-		"source" : "Корона Мастера"
+		"source" : "Корона Мастер"
 	},
 	{
 		"namespace\/key" : "\/0EFF020E4FEDFDEDF550C4B424AB512E",
-		"source" : "Корона Мастера"
+		"source" : "Корона Мастер"
 	},
 	{
 		"namespace\/key" : "\/1C669AFA4092EB268B8E5FA8B927F39E",
@@ -7441,16 +7449,12 @@
 		"source" : "Мастер-версия Баннера Мастерства Мёрдок. Обретается при достижении Мёрдоком 8-го уровня мастерства. Экипируется на вкладке \"Профиль\"."
 	},
 	{
-		"namespace\/key" : "\/DD124D724F36C98429A0848211506BC0",
-		"source" : "Двигаться вперед"
-	},
-	{
-		"namespace\/key" : "\/1C1DF948476A5CB271FD76A2B72F18C4",
-		"source" : "Двигаться влево"
-	},
-	{
 		"namespace\/key" : "\/0E6EFD1F4B799599B6566F8CCE2A5EC8",
 		"source" : "Мастер-версия Баннера Мастерства Мюриэль. Обретается при достижении Мюриэль 8-го уровня мастерства. Экипируется на вкладке \"Профиль\"."
+	},
+	{
+		"namespace\/key" : "\/7446C0DD4D07BB691E99AF8FDBDD01A3",
+		"source" : "Нужно описание"
 	},
 	{
 		"namespace\/key" : "\/CEF4063442502C8C18D2B89F3CFD7DA6",
@@ -7889,6 +7893,14 @@
 		"source" : "Двигаться назад"
 	},
 	{
+		"namespace\/key" : "\/DD124D724F36C98429A0848211506BC0",
+		"source" : "Двигаться вперед"
+	},
+	{
+		"namespace\/key" : "\/1C1DF948476A5CB271FD76A2B72F18C4",
+		"source" : "Двигаться влево"
+	},
+	{
 		"namespace\/key" : "\/0D313EF440B54F8BA4A1929D2A26BE57",
 		"source" : "Двигаться вправо"
 	},
@@ -8162,14 +8174,6 @@
 	},
 	{
 		"namespace\/key" : "\/6C1EA60B42F0961AACEAE59CC7313427",
-		"source" : "Нужно описание"
-	},
-	{
-		"namespace\/key" : "\/715F10BA4FC47E2BBAEC51834E1EAE99",
-		"source" : "Нужно описание"
-	},
-	{
-		"namespace\/key" : "\/7446C0DD4D07BB691E99AF8FDBDD01A3",
 		"source" : "Нужно описание"
 	},
 	{
@@ -9977,6 +9981,10 @@
 		"source" : "Розовый лесной бафф"
 	},
 	{
+		"namespace\/key" : "\/BC3F357042C618F4D5B3C4AC31390AA0",
+		"source" : "Siege"
+	},
+	{
 		"namespace\/key" : "\/7FEDD1B447EC0AE5A4F6EEAF357D0C5D",
 		"source" : "Речные мухи появляются каждые 2 минуты, начиная с 3-й минуты."
 	},
@@ -10269,10 +10277,6 @@
 		"source" : "Скорч бросает масляный шар, который катится в выбранном направлении, нанося {OilSpill_Damage} <AbilityPowerText>(+{OilSpill_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона пораженным врагам. Масло длится {OilSpill_Duration} сек, замедляя врагов на {OilSpill_Slow:OneMinus:Percent}%.\r\n\r\nПри поджигании огненными способностями Игги, длительность обновляется и враги получают {OilSpill_FireDamage} <AbilityPowerText>(+{OilSpill_FireAPScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона каждые 0,5 секунды."
 	},
 	{
-		"namespace\/key" : "\/BC3F357042C618F4D5B3C4AC31390AA0",
-		"source" : "Siege"
-	},
-	{
 		"namespace\/key" : "\/1D2CE8654344E7747EFADBA32C1F70E5",
 		"source" : "Осадный миньон"
 	},
@@ -10287,6 +10291,14 @@
 	{
 		"namespace\/key" : "\/D9BE47CC4E7138F1AD181286809D56BF",
 		"source" : "Silence"
+	},
+	{
+		"namespace\/key" : "\/96C4E7FD48746DDD7B48B1B2F985E96B",
+		"source" : "Silentium"
+	},
+	{
+		"namespace\/key" : "\/05DAA65842153B52B88E1E8409B04593",
+		"source" : "Silver Ghost"
 	},
 	{
 		"namespace\/key" : "\/98CF02674CF664130E538D9CBC712949",
@@ -10543,14 +10555,6 @@
 	{
 		"namespace\/key" : "\/82A2CC4848FC9310E4146588537E9CAE",
 		"source" : "Show Off"
-	},
-	{
-		"namespace\/key" : "\/96C4E7FD48746DDD7B48B1B2F985E96B",
-		"source" : "Silentium"
-	},
-	{
-		"namespace\/key" : "\/05DAA65842153B52B88E1E8409B04593",
-		"source" : "Silver Ghost"
 	},
 	{
 		"namespace\/key" : "\/11F770F7400CB54CCB988DB35BCD0894",
@@ -11169,8 +11173,12 @@
 		"source" : "Терра разворачивается, нанося всем врагам вокруг себя {RuthlessAssault_Damage} <AttackDamageText>(+{RuthlessAssault_PPScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона, прежде чем нанести новый удар. с дополнительным ударом вперед, снова нанося урон всем врагам перед ней."
 	},
 	{
-		"namespace\/key" : "\/BDD947304E1C3BFDCFCEBE92013CCD7A",
-		"source" : "Wasteland"
+		"namespace\/key" : "\/74D7DCBA412021A079FCB182CC567C30",
+		"source" : "Общий урон по башням"
+	},
+	{
+		"namespace\/key" : "\/BF458CD64B1EDE0E8C19EE9E252F082F",
+		"source" : "Общий нанесенный магический урон"
 	},
 	{
 		"namespace\/key" : "\/188DC073487B63154BA9ADADB0D30E67",
@@ -11294,27 +11302,27 @@
 	},
 	{
 		"namespace\/key" : "\/A524C9FA48C4B169FE9F539BDF42986B",
-		"source" : "Tier 1"
+		"source" : "Тир 1"
 	},
 	{
 		"namespace\/key" : "\/A95CF445415EF2638CCD8891FD0D8B43",
-		"source" : "Tier 1"
+		"source" : "Тир 1"
 	},
 	{
 		"namespace\/key" : "\/37D1C894437716B3AAC5ADA04AC7D9A0",
-		"source" : "Tier 2"
+		"source" : "Тир 2"
 	},
 	{
 		"namespace\/key" : "\/E8BF8E03491BDB95D399B38FB40F938F",
-		"source" : "Tier 2"
+		"source" : "Тир 2"
 	},
 	{
 		"namespace\/key" : "\/0FF91EA54F9B80B31F1440919D39BFDF",
-		"source" : "Tier 3"
+		"source" : "Тир 3"
 	},
 	{
 		"namespace\/key" : "\/29B569544797EA31BEDCC2B97E14878B",
-		"source" : "Tier 3"
+		"source" : "Тир 3"
 	},
 	{
 		"namespace\/key" : "\/A62CDEA34367D8AB6114CA94C3E0F22E",
@@ -11423,14 +11431,6 @@
 	{
 		"namespace\/key" : "\/C085B02E4479C4C72393BA89AD7B7FE6",
 		"source" : "Общий урон по объектам"
-	},
-	{
-		"namespace\/key" : "\/74D7DCBA412021A079FCB182CC567C30",
-		"source" : "Общий урон по башням"
-	},
-	{
-		"namespace\/key" : "\/BF458CD64B1EDE0E8C19EE9E252F082F",
-		"source" : "Общий нанесенный магический урон"
 	},
 	{
 		"namespace\/key" : "\/90E6DA1345C05515858BE8BE99E85B36",
@@ -11729,12 +11729,12 @@
 		"source" : "Используйте <keybind id=\"ItemSlot1\"><\/> чтобы активировать зелье здоровья."
 	},
 	{
-		"namespace\/key" : "\/A4B06A5C40A710ADE6DA5B8C38627574",
-		"source" : "Смотреть"
-	},
-	{
 		"namespace\/key" : "\/65EB60C4451E39D12BE27181682F3A1F",
 		"source" : "Используйте <keybind id=\"MoveForward\"><\/> <keybind id=\"MoveLeft\"><\/> <keybind id=\"MoveBackwards\"><\/> <keybind id=\"MoveRight\"><\/> чтобы перемещаться."
+	},
+	{
+		"namespace\/key" : "\/C74984234C01FF6233A11BBAC7679741",
+		"source" : "Осторожно"
 	},
 	{
 		"namespace\/key" : "\/2146FEC24CBFF9210E9CABB781408283",
@@ -12057,12 +12057,16 @@
 		"source" : "Wasteland"
 	},
 	{
-		"namespace\/key" : "\/C2204D194F3BE5BE303980A763F252ED",
+		"namespace\/key" : "\/BDD947304E1C3BFDCFCEBE92013CCD7A",
+		"source" : "Wasteland"
+	},
+	{
+		"namespace\/key" : "\/A4B06A5C40A710ADE6DA5B8C38627574",
 		"source" : "Смотреть"
 	},
 	{
-		"namespace\/key" : "\/C74984234C01FF6233A11BBAC7679741",
-		"source" : "Осторожно"
+		"namespace\/key" : "\/C2204D194F3BE5BE303980A763F252ED",
+		"source" : "Смотреть"
 	},
 	{
 		"namespace\/key" : "\/EA2FB4EE441C16241588E6A8D87BFF26",
@@ -12673,20 +12677,8 @@
 		"source" : "• Скорректированные визуальные эффекты."
 	},
 	{
-		"namespace\/key" : "Lyra\/UtilityAbility_Name",
-		"source" : "Телепортация"
-	},
-	{
-		"namespace\/key" : "Lyra\/Brightness_Name",
-		"source" : "Яркость"
-	},
-	{
-		"namespace\/key" : "Lyra\/GamepadCollection_Name",
-		"source" : "КОНТРОЛЛЕР"
-	},
-	{
-		"namespace\/key" : "Lyra\/EPredHealthOverHeadMeleeSetting_Center",
-		"source" : "Центр"
+		"namespace\/key" : "dt_Grux_AbilityDescriptions\/DoublePain_MenuDescription",
+		"source" : "Используя оба оружия, Грукс рассекает всех врагов перед собой, нанося {DoublePain_Damage} <AttackDamageText>(+{DoublePain_TotalADScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона.\r\n\r\nDouble Pain накладывает эффекты при попадании дважды."
 	},
 	{
 		"namespace\/key" : "\/64EA6C894A4147256D9D1BABBBF9D9AB",
@@ -12885,8 +12877,8 @@
 		"source" : "После применения способности Кранч усиливает свою следующую базовую атаку, наносит <AttackDamageText>(+{CrossCrunch_TotalADScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/><AbilityPowerText>(+{CrossCrunch_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> дополнительного магического урона и сокращает его текущее время восстановления на {CrossCrunch_CDR} сек."
 	},
 	{
-		"namespace\/key" : "Lyra\/EPredHealthOverHeadRangedSetting_Center",
-		"source" : "Центр"
+		"namespace\/key" : "Lyra\/UtilityAbility_Name",
+		"source" : "Телепортация"
 	},
 	{
 		"namespace\/key" : "dt_Crunch_AbilityDescriptions\/RightCrunch_MenuDescription",
@@ -12953,8 +12945,12 @@
 		"source" : "Запускает прыгающую бомбу, которая наносит {StasisBomb_Damage} <AbilityPowerText>(+{StasisBomb_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона и оглушает противников в небольшой области на {StasisBomb_MinimumStunDuration} сек. \r\n\r\nДлительность оглушения увеличивается до {StasisBomb_MaximumStunDuration} сек. в зависимости от расстояния (максимум 3500 единиц)."
 	},
 	{
-		"namespace\/key" : "Lyra\/AudioOutputDevice_Description",
-		"source" : "Изменяет устройство вывода звука для звука игры (не голосового чата)."
+		"namespace\/key" : "Lyra\/Brightness_Name",
+		"source" : "Яркость"
+	},
+	{
+		"namespace\/key" : "Lyra\/GamepadCollection_Name",
+		"source" : "КОНТРОЛЛЕР"
 	},
 	{
 		"namespace\/key" : "dt_Dekker_AbilityDescriptions\/IonStrike_MenuDescription",
@@ -13069,8 +13065,8 @@
 		"source" : "Поделитесь ключом с тем, с кем хотите поиграть."
 	},
 	{
-		"namespace\/key" : "Lyra\/LookSensitivityPresetY_Name",
-		"source" : "Чувствительность Y"
+		"namespace\/key" : "Lyra\/EPredHealthOverHeadMeleeSetting_Center",
+		"source" : "Центр"
 	},
 	{
 		"namespace\/key" : "dt_Emerald_AbilityDescriptions\/C67156AF498F563EF5F607AA6BA4CC95",
@@ -13141,12 +13137,8 @@
 		"source" : "Тренируйтесь с ИИ в традиционном игровом режиме 5 на 5."
 	},
 	{
-		"namespace\/key" : "Lyra\/PostProcessingQualityLow",
-		"source" : "Низкие"
-	},
-	{
-		"namespace\/key" : "Lyra\/TextureQualityLow",
-		"source" : "Низкие"
+		"namespace\/key" : "Lyra\/EPredHealthOverHeadRangedSetting_Center",
+		"source" : "Центр"
 	},
 	{
 		"namespace\/key" : "dt_FengMao_AbilityDescriptions\/EarthShatter_MenuDescription",
@@ -13401,12 +13393,8 @@
 		"source" : "В течение следующих {BladeOfStone_Duration} сек, ваши следующие 3 базовые атаки наносят {BladeOfStone_Damage} <AttackDamageText>(+{BladeOfStone_OnHitPhysicalScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> дополнительного физического урона и накладывает {BladeOfStone_Slow:OneMinus:Percent}% замедления на {BladeOfStone_SlowDuration} сек.\r\n\r\nДополнительные приложения будут обновлять и суммировать отрицательный эффект замедления."
 	},
 	{
-		"namespace\/key" : "Lyra\/VisualEffectQualityLow",
-		"source" : "Низкие"
-	},
-	{
-		"namespace\/key" : "Lyra\/MouseAndKeyboardCollection_Name",
-		"source" : "УПРАВЛЕНИЕ"
+		"namespace\/key" : "Lyra\/AudioOutputDevice_Description",
+		"source" : "Изменяет устройство вывода звука для звука игры (не голосового чата)."
 	},
 	{
 		"namespace\/key" : "dt_GreyStone_AbilityDescriptions\/MakeWay_MenuDescription",
@@ -13469,18 +13457,6 @@
 		"source" : "Вы разбиваете землю, выпуская ударную волну, которая притягивает всех врагов на своем пути к Груксу, нанося {SmashAndGrab_Damage} <AttackDamageText>(+{SmashAndGrab_BonusADScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона и оглушая их на {SmashAndGrab_Stun} сек."
 	},
 	{
-		"namespace\/key" : "Lyra\/DeviceProfileSuffix_Description",
-		"source" : "Выбирайте между различными настройками качества, чтобы найти компромисс между качеством и скоростью."
-	},
-	{
-		"namespace\/key" : "Lyra\/Cinematic_Name",
-		"source" : "Кинематографический режим"
-	},
-	{
-		"namespace\/key" : "dt_Grux_AbilityDescriptions\/DoublePain_MenuDescription",
-		"source" : "Используя оба оружия, Грукс рассекает всех врагов перед собой, нанося {DoublePain_Damage} <AttackDamageText>(+{DoublePain_TotalADScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона.\r\n\r\nDouble Pain накладывает эффекты при попадании дважды."
-	},
-	{
 		"namespace\/key" : "dt_Howitzer_AbilityDescriptions\/R2000Missile_GameDescription",
 		"source" : "<Header>Запускает ракету дальнего действия, которая взрывается при ударе.<\/>\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText> урона<\/>."
 	},
@@ -13541,6 +13517,14 @@
 		"source" : "<Header>Делает рывок по направлению движения.<\/>\r\n• На время не возможно <EffectText>выбрать<\/> в качестве цели.\r\n• Получает дополнительно <AttackDamageText>{BonusPhysicalPower} физической силы<\/> на <AttackDamageText>{BonusDuration} сек.<\/>"
 	},
 	{
+		"namespace\/key" : "Lyra\/DeviceProfileSuffix_Description",
+		"source" : "Выбирайте между различными настройками качества, чтобы найти компромисс между качеством и скоростью."
+	},
+	{
+		"namespace\/key" : "Lyra\/Cinematic_Name",
+		"source" : "Кинематографический режим"
+	},
+	{
 		"namespace\/key" : "dt_Huntress_AbilityDescriptions\/Mercy_GameDescription",
 		"source" : "<Header>Производит мощный выстрел из ручной пушки.<\/>\r\n• Наносит <AttackDamageText>{Damage}<\/>(<img id=\"ADIconOrange\"><\/>)<AttackDamageText>урона<\/>.\r\n• Mercy наносит критические удары и применяет <EffectText>эффекты при попадании<\/>.\r\n• Срабатывает вампиризм.\r\n• Наносит <AttackDamageText>{ExtraDamage}<\/> дополнительного <AttackDamageText>урона<\/> не героям.\r\n• При выстреле по герою восстанавливает <EffectText>50%<\/> <EffectText>КД<\/>."
 	},
@@ -13585,8 +13569,8 @@
 		"source" : "Очищает все вражеские цели, отмеченные эффектом Vengeance, нанося {Dusk_BaseDamage} физического урона плюс дополнительно {Dusk_Damage} <AttackDamageText>(+{Dusk_BonusPPScalingPerStack:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> урона за заряд и замедляет на {Dusk_Slow:OneMinus:Percent}% на {Dusk_SlowDuration} сек.\r\n\r\nМаксимально наносит: {Dusk_MaxDamage} <AttackDamageText>(+{Dusk_MaxBonusPPScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона."
 	},
 	{
-		"namespace\/key" : "dt_Khaimera_AbilityDescriptions\/Cull_GameDescription",
-		"source" : "<Header>Издает леденящий кровь рев и разрезает всех врагов перед собой.<\/>\r\n• Наносит <AttackDamageText>{Damage}<\/>(<img id=\"ADIconOrange\"><\/>)<AttackDamageText>урона<\/> за <AttackDamageText>6<\/> ударов. \r\n• <CC_Text>Оглушает<\/> на <CC_Text>1.25 сек.<\/> \r\n• Дает <EffectText>{StackNum} зарядов Spirit Regeneration<\/> за каждое попадание по герою."
+		"namespace\/key" : "dt_Huntress_AbilityDescriptions\/Purge_MenuDescription",
+		"source" : "Выпусткает шквал стрел и пуль, в течение {Purge_Duration} сек. Ближайшие вражеские отряды получают {Purge_TotalDamage} <AttackDamageText>(+{Purge_PPScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона в течение всего времени действия.\r\n\r\nЭти атаки получают преимущество от вампиризма, могут нанести критический удар и применять эффекты при попадании с {Purge_OnHitModifier:Percent}% эффективностью.\r\n\r\nВ это время Кира не может ни атаковать, ни использовать способности, кроме Shadow Glide. Она также может двигаться, но ее скорость уменьшается на {Purge_SelfSlow:OneMinus:Percent}%."
 	},
 	{
 		"namespace\/key" : "Lyra\/PerfStatDescription_ClientFPS",
@@ -13599,10 +13583,6 @@
 	{
 		"namespace\/key" : "Lyra\/ColorBlindStrength_Name",
 		"source" : "Мощность дальтонизма"
-	},
-	{
-		"namespace\/key" : "dt_Huntress_AbilityDescriptions\/Purge_MenuDescription",
-		"source" : "Выпусткает шквал стрел и пуль, в течение {Purge_Duration} сек. Ближайшие вражеские отряды получают {Purge_TotalDamage} <AttackDamageText>(+{Purge_PPScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона в течение всего времени действия.\r\n\r\nЭти атаки получают преимущество от вампиризма, могут нанести критический удар и применять эффекты при попадании с {Purge_OnHitModifier:Percent}% эффективностью.\r\n\r\nВ это время Кира не может ни атаковать, ни использовать способности, кроме Shadow Glide. Она также может двигаться, но ее скорость уменьшается на {Purge_SelfSlow:OneMinus:Percent}%."
 	},
 	{
 		"namespace\/key" : "dt_Kallari_AbilityDescriptions\/ShadowWalk_GameDescription",
@@ -13655,6 +13635,22 @@
 	{
 		"namespace\/key" : "dt_Kallari_AbilityDescriptions\/CripplingDagger_MenuDescription",
 		"source" : "Бросает кинжал, нанося {CripplingDagger_Damage} <AttackDamageText>(+{CripplingDagger_BonusADScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> физического урона и применяя {CripplingDagger_SlowAmount:OneMinus:Percent}% замедления на {CripplingDagger_SlowDuration} сек.\r\n\r\nМиньоны и монстры получают {CripplingDagger_AdditionalMonsterDamage} дополнительного урона. \r\n\r\nМаксимум зарядов:  2."
+	},
+	{
+		"namespace\/key" : "dt_Khaimera_AbilityDescriptions\/Cull_GameDescription",
+		"source" : "<Header>Издает леденящий кровь рев и разрезает всех врагов перед собой.<\/>\r\n• Наносит <AttackDamageText>{Damage}<\/>(<img id=\"ADIconOrange\"><\/>)<AttackDamageText>урона<\/> за <AttackDamageText>6<\/> ударов. \r\n• <CC_Text>Оглушает<\/> на <CC_Text>1.25 сек.<\/> \r\n• Дает <EffectText>{StackNum} зарядов Spirit Regeneration<\/> за каждое попадание по герою."
+	},
+	{
+		"namespace\/key" : "Lyra\/PerfStatsPage_Description",
+		"source" : "Настройка отображение статистики производительности."
+	},
+	{
+		"namespace\/key" : "Lyra\/DeadZoneCollection_Name",
+		"source" : "Мертвая зона контроллера"
+	},
+	{
+		"namespace\/key" : "Lyra\/ControllerHardware_Name",
+		"source" : "Аппаратное обеспечение контроллера"
 	},
 	{
 		"namespace\/key" : "dt_Khaimera_AbilityDescriptions\/Ambush_GameDescription",
@@ -13718,15 +13714,15 @@
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/SurgeoftheHeavens_GameDescription",
-		"source" : "<Header>Становится молнией и мчится вперед.<\/>\r\n• Проходит через врагов и наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/>.\r\n• На время не возможно <EffectText>выбрать<\/> в качестве цели.\r\n<Header>Если Клинок воткнут в землю:<\/>\r\n• Сделав рывок к клинку.\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/> ближайшим врагам.\r\n• <CC_Text>Подбрасывает<\/> и <CC_Text>оглушает<\/> на <CC_Text>{StunDuration} сек.<\/>"
+		"source" : "<Header>Становится молнией и мчится вперед.<\/>\r\n• Проходит через врагов и наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/>.\r\n• На время не возможно <EffectText>выбрать<\/> в качестве цели.\r\n<Header>Если клинок воткнут в землю:<\/>\r\n• Сделав рывок к клинку.\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/> ближайшим врагам.\r\n• <CC_Text>Подбрасывает<\/> и <CC_Text>оглушает<\/> на <CC_Text>{StunDuration} сек.<\/>"
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/FuryoftheHeavens_GameDescription",
-		"source" : "<Header>Концентрирует удар небесным клинком.<\/>\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/>  ближайшим врагам.\r\n• <CC_Text>Замедляет<\/> на <CC_Text>{SlowMagnitude}%<\/> на <CC_Text>{SlowDuration} сек.<\/>\r\n\r\n<Header>Если Клинок воткнут в землю:<\/>\r\n• Кван <EffectText>телепортируется<\/> к клинку перед нанесение удара."
+		"source" : "<Header>Концентрирует удар небесным клинком.<\/>\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/>  ближайшим врагам.\r\n• <CC_Text>Замедляет<\/> на <CC_Text>{SlowMagnitude}%<\/> на <CC_Text>{SlowDuration} сек.<\/>\r\n\r\n<Header>Если клинок воткнут в землю:<\/>\r\n• Кван <EffectText>телепортируется<\/> к клинку перед нанесение удара."
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/LightoftheHeavens_GameDescription",
-		"source" : "<Header>Свет поражает небесный клинок.<\/>\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/> ближайшим врагам.\r\n• Держа клинок в руке вы получаете <ShieldText>{Shield}<\/>(<img id=\"APIconBlue\"><\/><img id=\"HealthIconGreen\"><\/>)<ShieldText>щит<\/> на <EffectText>{ShieldDuration} сек.<\/>\r\n\r\n<Header>Если Клинок воткнут в землю:<\/>\r\n • Наносит <TrueDamageText>{TrueDamage}<\/>(<img id=\"APIconBlue\"><\/>)<TrueDamageText>урона<\/> вокруг Клинка."
+		"source" : "<Header>Свет поражает небесный клинок.<\/>\r\n• Наносит <AbilityPowerText>{Damage}<\/>(<img id=\"APIconBlue\"><\/>)<AbilityPowerText>урона<\/> ближайшим врагам.\r\n• Держа клинок в руке вы получаете <ShieldText>{Shield}<\/>(<img id=\"APIconBlue\"><\/><img id=\"HealthIconGreen\"><\/>)<ShieldText>щит<\/> на <EffectText>{ShieldDuration} сек.<\/>\r\n\r\n<Header>Если клинок воткнут в землю:<\/>\r\n • Наносит <TrueDamageText>{TrueDamage}<\/>(<img id=\"APIconBlue\"><\/>)<TrueDamageText>урона<\/> вокруг клинка."
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/Slice_GameDescription",
@@ -13742,15 +13738,15 @@
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/FuryoftheHeavens_MenuDescription",
-		"source" : "Совершает удар Небесным клинком, который наносит {FuryoftheHeavens_Damage} <AbilityPowerText>(+{FuryoftheHeavens_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона и применяет {FuryoftheHeavens_Slow:OneMinus:Percent}% замедления на {FuryoftheHeavens_SlowDuration} сек. к ближайшим вражеским отрядам.\r\n\r\nЕсли Клинок находится в земле, Кван телепортируется к нему, прежде чем нанести удар."
+		"source" : "Совершает удар небесным клинком, который наносит {FuryoftheHeavens_Damage} <AbilityPowerText>(+{FuryoftheHeavens_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона и применяет {FuryoftheHeavens_Slow:OneMinus:Percent}% замедления на {FuryoftheHeavens_SlowDuration} сек. к ближайшим вражеским отрядам.\r\n\r\nЕсли клинок находится в земле, Кван телепортируется к нему, прежде чем нанести удар."
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/SurgeoftheHeavens_MenuDescription",
-		"source" : "Кван совершает рывок вперед, становится недоступным для выбора и наносит {Surge_Damage} <AbilityPowerText>(+{Surge_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> урона всем вражеским отрядам, через которые он проходит. \r\n\r\nКогда Клинок находится в земле, если Кван совершит рывок в пределах 300 единиц его радиуса, он вернет его в руку с грохотом молнии, нанося урон всем ближайшим вражеским отрядам и подбрасывая их на {Surge_StunDuration} сек."
+		"source" : "Кван совершает рывок вперед, становится недоступным для выбора и наносит {Surge_Damage} <AbilityPowerText>(+{Surge_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> урона всем вражеским отрядам, через которые он проходит. \r\n\r\nКогда клинок находится в земле, если Кван совершит рывок в пределах 300 единиц его радиуса, он вернет его в руку с грохотом молнии, нанося урон всем ближайшим вражеским отрядам и подбрасывая их на {Surge_StunDuration} сек."
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/LightoftheHeavens_MenuDescription",
-		"source" : "Свет поражает Небесный клинок, нанося урон ближайшим вражеским отрядам. \r\nДержа в руках Клинок, он наносит {LightoftheHeavens_Damage} <AbilityPowerText>(+{LightoftheHeavens_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона и дает Квану {LightoftheHeavens_BaseShield} <AbilityPowerText>(+{LightoftheHeavens_ShieldScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> <HealthText>(+{LightoftheHeavens_ShieldBonusHealthScaling:Percent}% <\/><img id=\"HealthIconGreen\"><\/><HealthText>)<\/> щит на {LightoftheHeavens_ShieldDuration} сек. \r\n\r\nЕсли Клинок находится в земле, вместо этого он наносит {LightoftheHeavens_TrueDamage} <AbilityPowerText>(+{LightoftheHeavens_TrueAPScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> чистого урона."
+		"source" : "Свет поражает небесный клинок, нанося урон ближайшим вражеским отрядам. \r\nДержа в руках клинок, он наносит {LightoftheHeavens_Damage} <AbilityPowerText>(+{LightoftheHeavens_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона и дает Квану {LightoftheHeavens_BaseShield} <AbilityPowerText>(+{LightoftheHeavens_ShieldScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> <HealthText>(+{LightoftheHeavens_ShieldBonusHealthScaling:Percent}% <\/><img id=\"HealthIconGreen\"><\/><HealthText>)<\/> щит на {LightoftheHeavens_ShieldDuration} сек. \r\n\r\nЕсли клинок находится в земле, вместо этого он наносит {LightoftheHeavens_TrueDamage} <AbilityPowerText>(+{LightoftheHeavens_TrueAPScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> чистого урона."
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/Slice_MenuDescription",
@@ -13758,7 +13754,7 @@
 	},
 	{
 		"namespace\/key" : "dt_Kwang_AbilityDescriptions\/JudgmentoftheHeavens_MenuDescription",
-		"source" : "Бросает Небесный клинок в указанное место, при приземлении наносит {JudgementoftheHeavens_Damage} <AbilityPowerText>(+{JudgementoftheHeavens_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона.\r\n\r\nВраги, пораженные клинком, будут привязаны к нему на {JudgementoftheHeavens_TetherDuration} сек. \r\n\r\nРанний вызов Клинка разорвет Привязь."
+		"source" : "Бросает небесный клинок в указанное место, при приземлении наносит {JudgementoftheHeavens_Damage} <AbilityPowerText>(+{JudgementoftheHeavens_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона.\r\n\r\nВраги, пораженные клинком, будут привязаны к нему на {JudgementoftheHeavens_TetherDuration} сек. \r\n\r\nРанний возврат клинка разорвет привязь."
 	},
 	{
 		"namespace\/key" : "dt_Lizard_AbilityDescriptions\/Coliseum_MenuDescription",
@@ -13881,8 +13877,12 @@
 		"source" : "Вы выбираете вражеского героя, выпуская мощный выстрел из пистолета лейтенанта Белики, наносящий {NeuralDisruptor_Damage} <AbilityPowerText>(+{NeuralDisruptor_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона. Урон увеличивается на {NeuralDisruptor_ManaToDamage} за каждую единицу недостающей маны цели.\r\n\r\nInnovation: дальность увеличивается на 300 единиц."
 	},
 	{
-		"namespace\/key" : "Lyra\/PerfStatsPage_Description",
-		"source" : "Настройка отображение статистики производительности."
+		"namespace\/key" : "Lyra\/GamepadBindingCollection_Name",
+		"source" : "Управление"
+	},
+	{
+		"namespace\/key" : "Lyra\/Crossplay_Name",
+		"source" : "Кроссплей"
 	},
 	{
 		"namespace\/key" : "dt_Morigesh_AbilityDescriptions\/Swarm_GameDescription",
@@ -13945,16 +13945,16 @@
 		"source" : "Откл"
 	},
 	{
-		"namespace\/key" : "Lyra\/DeadZoneCollection_Name",
-		"source" : "Мертвая зона контроллера"
+		"namespace\/key" : "Lyra\/GamepadCursorStick_Name",
+		"source" : "Курсор"
 	},
 	{
-		"namespace\/key" : "Lyra\/ControllerHardware_Name",
-		"source" : "Аппаратное обеспечение контроллера"
+		"namespace\/key" : "Lyra\/EPredHealthOverHeadAlliedMinionSetting_Offset",
+		"source" : "Поврежденный"
 	},
 	{
-		"namespace\/key" : "Lyra\/GamepadBindingCollection_Name",
-		"source" : "Управление"
+		"namespace\/key" : "Lyra\/EPredHeroHealthbarAllyVisibilitySetting_Offset",
+		"source" : "Поврежденный"
 	},
 	{
 		"namespace\/key" : "dt_Murdock_AbilityDescriptions\/LongArmOfTheLaw_GameDescription",
@@ -14017,16 +14017,16 @@
 		"source" : "Мёрдок переключает свой пистолет в режим тройного выстрела, нанося <AttackDamageText>(+{BurstFire_TotalADScaling:Percent}%<\/><img id=\"ADIconOrange\"><\/><AttackDamageText>)<\/> за выстрел в течение {BurstFire_Duration} сек. эти выстрелы накладывают эффекты при попадании один раз за серию."
 	},
 	{
-		"namespace\/key" : "Lyra\/Crossplay_Name",
-		"source" : "Кроссплей"
-	},
-	{
-		"namespace\/key" : "Lyra\/GamepadCursorStick_Name",
-		"source" : "Курсор"
-	},
-	{
-		"namespace\/key" : "Lyra\/EPredHealthOverHeadAlliedMinionSetting_Offset",
+		"namespace\/key" : "Lyra\/EPredHeroHealthbarEnemyVisibilitySetting_Offset",
 		"source" : "Поврежденный"
+	},
+	{
+		"namespace\/key" : "Lyra\/EPredMinionHealthbarEnemyVisibilitySetting_Offset",
+		"source" : "Поврежденный"
+	},
+	{
+		"namespace\/key" : "Lyra\/EGamepadScheme_Advanced",
+		"source" : "По умолчанию"
 	},
 	{
 		"namespace\/key" : "dt_Murdock_AbilityDescriptions\/BurstFire_GameDescription",
@@ -14089,12 +14089,12 @@
 		"source" : "Базовые атаки Мюриэль наносят дополнительно {Sentinel_BaseDamage} (+{Sentinel_DamagePerLevel} за уровень) <AbilityPowerText>(+{Sentinel_APScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона при попадании.\r\n\r\nСоюзные цели, на которые действуют способности Мюриэль, на время действия получают урон при попадании, как Sentinel's."
 	},
 	{
-		"namespace\/key" : "Lyra\/EPredHeroHealthbarAllyVisibilitySetting_Offset",
-		"source" : "Поврежденный"
+		"namespace\/key" : "Lyra\/ItemActiveThree_Name",
+		"source" : "Слот предмета 3"
 	},
 	{
-		"namespace\/key" : "Lyra\/PostProcessingQualityMedium",
-		"source" : "Средние"
+		"namespace\/key" : "Lyra\/KeyBindingCollection_Name",
+		"source" : "Клавиатура и мышь"
 	},
 	{
 		"namespace\/key" : "dt_Muriel_AbilityDescriptions\/ReversalOfFortune_MenuDescription",
@@ -14157,12 +14157,12 @@
 		"source" : "Он издает боевой клич, даруя Нарбашу и его ближайшим союзникам {March_SpeedBuff}% снижающейся скорости передвижения на {March_MovespeedDecay} сек. (+{March_Rhythm_IncreasedDuration} сек. за заряд Ритм).\r\n\r\nПри использовании дает {March_Rhythm_Stacks} зарядов Ритм."
 	},
 	{
-		"namespace\/key" : "Lyra\/EPredHeroHealthbarEnemyVisibilitySetting_Offset",
-		"source" : "Поврежденный"
+		"namespace\/key" : "Lyra\/LanguageCollection_Name",
+		"source" : "Язык"
 	},
 	{
-		"namespace\/key" : "Lyra\/ShadowMedium",
-		"source" : "Средние"
+		"namespace\/key" : "Lyra\/LanguageSetting_Name",
+		"source" : "Язык"
 	},
 	{
 		"namespace\/key" : "dt_Narbash_AbilityDescriptions\/CrashBangBoom_MenuDescription",
@@ -14217,16 +14217,12 @@
 		"source" : "После применения способности восстанавливает {EssenceCatalyst_Heal} <AbilityPowerText>(+{EssenceCatalyst_HealScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> здоровья в течение {EssenceCatalyst_Duration} сек. Связанные союзники получают такое же лечение. Этот эффект не суммируется."
 	},
 	{
-		"namespace\/key" : "Lyra\/EPredMinionHealthbarEnemyVisibilitySetting_Offset",
-		"source" : "Поврежденный"
+		"namespace\/key" : "Lyra\/LanguageSetting_Disabled",
+		"source" : "Языковые настройки нельзя изменить во время матча."
 	},
 	{
-		"namespace\/key" : "Lyra\/EGamepadScheme_Advanced",
-		"source" : "По умолчанию"
-	},
-	{
-		"namespace\/key" : "Lyra\/TextureQualityMedium",
-		"source" : "Средние"
+		"namespace\/key" : "Lyra\/EPredAnalogStick_Adapter_Left",
+		"source" : "Левый джойстик"
 	},
 	{
 		"namespace\/key" : "dt_Phase_AbilityDescriptions\/TelekineticLink_MenuDescription",
@@ -14289,20 +14285,16 @@
 		"source" : "Впадаете в ярость, увеличиваясь в размерах и изменяя способности Буйства в течение {Behemoth_Duration} сек. На это время он получает {Behemoth_HealthIncrease} максимального здоровья. \r\n\r\nПока Behemoth активен, Рампейдж получает эффекты Короля джунглей, а его регенерация здоровья умножается в {Behemoth_RegenMultiplier}x раза."
 	},
 	{
-		"namespace\/key" : "Lyra\/ItemActiveThree_Name",
-		"source" : "Слот предмета 3"
+		"namespace\/key" : "Lyra\/SafeZone_KeyToPress_Gamepad",
+		"source" : "Левый джойстик"
 	},
 	{
-		"namespace\/key" : "Lyra\/KeyBindingCollection_Name",
-		"source" : "Клавиатура и мышь"
+		"namespace\/key" : "Lyra\/MoveStickDeadZone_Name",
+		"source" : "Левый джойстик Мертвая зона"
 	},
 	{
-		"namespace\/key" : "Lyra\/LanguageCollection_Name",
-		"source" : "Язык"
-	},
-	{
-		"namespace\/key" : "Lyra\/LanguageSetting_Name",
-		"source" : "Язык"
+		"namespace\/key" : "Lyra\/LookSensitivityPresetX_Name",
+		"source" : "Чувствительность X"
 	},
 	{
 		"namespace\/key" : "dt_Rampage_AbilityDescriptions\/Pounce_MenuDescription",
@@ -14361,16 +14353,20 @@
 		"source" : "Пассивный эффект: критический урон изменен до {HellfireRounds_CriticalDamageBonus:PlusOne:Percent}%. \r\n\r\nАктивный эффект: Ревенант перезаряжает свой револьвер."
 	},
 	{
-		"namespace\/key" : "Lyra\/LanguageSetting_Disabled",
-		"source" : "Языковые настройки нельзя изменить во время матча."
+		"namespace\/key" : "Lyra\/LookSensitivityPresetY_Name",
+		"source" : "Чувствительность Y"
 	},
 	{
-		"namespace\/key" : "Lyra\/EPredAnalogStick_Adapter_Left",
-		"source" : "Левый джойстик"
+		"namespace\/key" : "Lyra\/PostProcessingQualityLow",
+		"source" : "Низкие"
 	},
 	{
-		"namespace\/key" : "Lyra\/SafeZone_KeyToPress_Gamepad",
-		"source" : "Левый джойстик"
+		"namespace\/key" : "Lyra\/TextureQualityLow",
+		"source" : "Низкие"
+	},
+	{
+		"namespace\/key" : "Lyra\/VisualEffectQualityLow",
+		"source" : "Низкие"
 	},
 	{
 		"namespace\/key" : "dt_Revenant_AbilityDescriptions\/BountyHunter_MenuDescription",
@@ -14437,8 +14433,8 @@
 		"source" : "Атакуйте капсулы, чтобы переключать их эффекты."
 	},
 	{
-		"namespace\/key" : "Lyra\/ViewDistanceMedium",
-		"source" : "Средние"
+		"namespace\/key" : "Lyra\/MouseAndKeyboardCollection_Name",
+		"source" : "УПРАВЛЕНИЕ"
 	},
 	{
 		"namespace\/key" : "dt_Riktor_AbilityDescriptions\/Riplash_MenuDescription",
@@ -14557,8 +14553,12 @@
 		"source" : "Призывает Духа Волка, который бежит по прямой и проходит через все вражеские цели, нанося {LineTempo_Damage} <AbilityPowerText>(+{LineTempo_Scaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона."
 	},
 	{
-		"namespace\/key" : "Lyra\/MoveStickDeadZone_Name",
-		"source" : "Левый джойстик Мертвая зона"
+		"namespace\/key" : "Lyra\/PostProcessingQualityMedium",
+		"source" : "Средние"
+	},
+	{
+		"namespace\/key" : "Lyra\/ShadowMedium",
+		"source" : "Средние"
 	},
 	{
 		"namespace\/key" : "dt_Sevarog_AbilityDescriptions\/Siphon_MenuDescription",
@@ -14621,7 +14621,7 @@
 		"source" : "Призывает 4 духа волка, которые окружают Синби в течение {CircleRhythm_Duration} сек,  предоставляя {CircleRhythm_Shield} <AbilityPowerText>(+{CircleRhythm_ShieldScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> щит на ту же длительность, после того, как волки исчезнут щит активируется повторно. \r\n\r\nВолки наносят {CircleRhythm_Damage} <AbilityPowerText>(+{CircleRhythm_DamageScaling:Percent}%<\/><img id=\"APIconBlue\"><\/><AbilityPowerText>)<\/> магического урона ближайшим врагам за время действия."
 	},
 	{
-		"namespace\/key" : "Lyra\/VisualEffectQualityMedium",
+		"namespace\/key" : "Lyra\/TextureQualityMedium",
 		"source" : "Средние"
 	},
 	{
@@ -14829,8 +14829,8 @@
 		"source" : "Автоматически настраивает параметры качества графики на основе эталонного оборудования.\r\n\r\n<strong>Внимание: чтобы изменения вступили в силу, вам потребуется перезапустить игру.<\/>"
 	},
 	{
-		"namespace\/key" : "Lyra\/MotionBlur_Name",
-		"source" : "Размытие в движении"
+		"namespace\/key" : "Lyra\/ViewDistanceMedium",
+		"source" : "Средние"
 	},
 	{
 		"namespace\/key" : "dt_Wraith_AbilityDescriptions\/KnockKnock_GameDescription",
@@ -15233,8 +15233,8 @@
 		"source" : "Ограничение частоты кадров устанавливает максимально допустимую частоту кадров. Установите это значение ниже для более стабильной частоты кадров или выше для лучшего опыта на более быстрых компьютерах. Возможно, вам придется отключить вертикальную синхронизацию, чтобы достичь высокой частоты кадров."
 	},
 	{
-		"namespace\/key" : "Lyra\/LookSensitivityPresetX_Name",
-		"source" : "Чувствительность X"
+		"namespace\/key" : "Lyra\/VisualEffectQualityMedium",
+		"source" : "Средние"
 	},
 	{
 		"namespace\/key" : "Lyra\/FrameRateLimit_WhenBackgrounded_Description",
@@ -15399,6 +15399,10 @@
 	{
 		"namespace\/key" : "Lyra\/ItemActiveTwo_Name",
 		"source" : "Слот предмета 2"
+	},
+	{
+		"namespace\/key" : "Lyra\/MotionBlur_Name",
+		"source" : "Размытие в движении"
 	},
 	{
 		"namespace\/key" : "Lyra\/MouseSensitivityYaw_Name",
@@ -15643,10 +15647,6 @@
 	{
 		"namespace\/key" : "Lyra\/HealthOverHeadAllyHero_Description",
 		"source" : "Выберете показывать, включена ли шкала здоровья ваших союзников всегда, только когда они повреждены, или полностью выключить отображение."
-	},
-	{
-		"namespace\/key" : "LyraSettings\/AspectRatio-4:3",
-		"source" : "4:3"
 	},
 	{
 		"namespace\/key" : "Lyra\/HealthOverHeadAlliedMinion_Description",
@@ -17570,7 +17570,7 @@
 	},
 	{
 		"namespace\/key" : "ST_HeroesInformation\/RoleFill",
-		"source" : "ЗАПОЛНИТЬ"
+		"source" : "АВТО-ВЫБОР"
 	},
 	{
 		"namespace\/key" : "ST_HeroesInformation\/ClassFighter",
@@ -18910,7 +18910,7 @@
 	},
 	{
 		"namespace\/key" : "ST_InGameHUD\/ObjectiveNotificationAlliesKillPrimalFangtooth",
-		"source" : "КОМАНДА СОЮЗНИКОВ УБИЛА ПЕРВОРОДНОГО РАПТОРА"
+		"source" : "КОМАНДА СОЮЗНИКОВ УБИЛА ПЕРВОБЫТНОГО РАПТОРА"
 	},
 	{
 		"namespace\/key" : "ST_InGameHUD\/SurrenderBoxAccept",
@@ -18958,7 +18958,7 @@
 	},
 	{
 		"namespace\/key" : "ST_InGameHUD\/ObjectiveNotificationEnemiesKillPrimalFangtooth",
-		"source" : "ВРАЖЕСКАЯ КОМАНДА УБИЛА ПЕРВОРОДНОГО РАПТОРА"
+		"source" : "ВРАЖЕСКАЯ КОМАНДА УБИЛА ПЕРВОБЫТНОГО РАПТОРА"
 	},
 	{
 		"namespace\/key" : "ST_InGameHUD\/TipsFreeLook",
@@ -19446,15 +19446,15 @@
 	},
 	{
 		"namespace\/key" : "ST_InGameShop\/ItemRankUncommon",
-		"source" : "Tier 1"
+		"source" : "Тир 1"
 	},
 	{
 		"namespace\/key" : "ST_InGameShop\/ItemRankRare",
-		"source" : "Tier 2"
+		"source" : "Тир 2"
 	},
 	{
 		"namespace\/key" : "ST_InGameShop\/ItemRankEpic",
-		"source" : "Tier 3"
+		"source" : "Тир 3"
 	},
 	{
 		"namespace\/key" : "ST_InGameShop\/UndoButton",
@@ -20010,27 +20010,27 @@
 	},
 	{
 		"namespace\/key" : "ST_Settings\/BannerDescription",
-		"source" : "Баннеры Affinity - это фон для карточки игрока. Баннеры оборудуются во вкладке «Профиль». Получено из системы Affinity."
+		"source" : "Баннеры Affinity - это фон для карточки игрока. Баннеры оборудуются во вкладке «Профиль»."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/BorderDescription",
-		"source" : "Рамки Affinity отображаются на экране загрузки. Получено из системы Affinity."
+		"source" : "Рамки Affinity отображаются на экране загрузки."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/CrownDescription",
-		"source" : "Короны Affinity - это косметические предметы, которые появляются над головой героя независимо от выбора скина. Получено из системы Affinity."
+		"source" : "Короны Affinity - это косметические предметы, которые появляются над головой героя независимо от выбора скина."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/JumpPadDescription",
-		"source" : "Следы прыжковой площадки Affinity — это косметические предметы, которые активируются, когда герой использует прыжковую площадку. Трассы для прыжков Affinity перезапишут общие трассы для прыжков для этого героя. Получено из системы Affinity."
+		"source" : "Следы прыжковой c площадки, Affinity — это косметические предметы, которые активируются, когда герой использует прыжковую площадку."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/RecallDescription",
-		"source" : "Affinity Recalls — это косметические предметы, которые активируются, когда герой возвращается. Affinity Recall перезапишет общие настройки для этого героя. Получено из системы Affinity."
+		"source" : "Affinity Recalls — это косметические предметы, которые активируются, когда герой возвращается."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/TitleDescription",
-		"source" : "Заголовки Affinity отображаются на экране загрузки. Получено из системы Affinity."
+		"source" : "Заголовки Affinity отображаются на экране загрузки."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/ConfirmResolutionTitle",
@@ -20054,7 +20054,7 @@
 	},
 	{
 		"namespace\/key" : "ST_Settings\/EmoteDescription",
-		"source" : "Эмоции можно воспроизводить во время матча. Эта эмоция автоматически активируется и становится доступной с помощью Колеса общения. Получено из системы Affinity."
+		"source" : "Эмоции можно воспроизводить во время матча. Эта эмоция автоматически активируется и становится доступной с помощью Колеса общения."
 	},
 	{
 		"namespace\/key" : "ST_Settings\/Skin_Desc_Base",
@@ -20079,14 +20079,6 @@
 	{
 		"namespace\/key" : "ST_Settings\/MoveStickDeadZone_Description_PS",
 		"source" : "Увеличьте или уменьшите область вокруг джойстика, от которой мы игнорируем ввод. Установка слишком низкого значения может привести к тому, что камера продолжит движение даже после того, как вы уберете палец с джойстика."
-	},
-	{
-		"namespace\/key" : "ST_UIData\/LoginBanTitle",
-		"source" : "БАН ВХОДА"
-	},
-	{
-		"namespace\/key" : "ST_UIData\/BanReasonDodged",
-		"source" : "Ушел во время выбора"
 	},
 	{
 		"namespace\/key" : "ST_Settings\/MoveStickDeadZone_Description_XB",
@@ -20273,6 +20265,14 @@
 		"source" : "ГЕРОИ"
 	},
 	{
+		"namespace\/key" : "ST_UIData\/LoginBanTitle",
+		"source" : "БАН ВХОДА"
+	},
+	{
+		"namespace\/key" : "ST_UIData\/BanReasonDodged",
+		"source" : "Ушел во время выбора"
+	},
+	{
 		"namespace\/key" : "ST_UIData\/PartyBanMessage",
 		"source" : "Система подбора игроков отключена, поскольку вы или член группы либо отказались от драфта, либо покинули игру, пока она еще продолжается, либо нарушили наши условия обслуживания.\r\n\r\nОтказ от драфта или невозможность выбрать героя приводит к отмене драфта. Это портит впечатление другим игрокам и увеличивает общее время ожидания."
 	},
@@ -20302,7 +20302,7 @@
 	},
 	{
 		"namespace\/key" : "ST_UIData\/SurveyTitle",
-		"source" : "ВАША ОТЗЫВ ВАЖНА!"
+		"source" : "ВАШ ОТЗЫВ ВАЖЕН!"
 	},
 	{
 		"namespace\/key" : "ST_UIData\/LoginBanMessage",
